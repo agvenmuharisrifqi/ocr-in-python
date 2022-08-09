@@ -3,7 +3,7 @@ import pytesseract
 import numpy as np
 
 # Read IMAGE default color
-img = cv2.imread('imgText.png')
+img = cv2.imread('trikinet.jpg')
 
 # Edit Image to Gray
 img_gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
@@ -26,11 +26,12 @@ img_morph_top_hat = cv2.morphologyEx(white, cv2.MORPH_TOPHAT, kernel, iterations
 img_morph_black_hat = cv2.morphologyEx(white, cv2.MORPH_BLACKHAT, kernel, iterations=1)
 
 # Get Text From Image
-text_result = pytesseract.image_to_string(img_invert)
+text_result = pytesseract.image_to_string(img_morph_opening)
 # text = pytesseract.image_to_alto_xml(img_black)
 print(text_result[:-1])
 
 # Create WINDOW to display IMAGE
+cv2.imshow('INVERT', img_invert)
 cv2.imshow('Erosion', img_erosion)
 cv2.imshow('Dilation', img_dilation)
 cv2.imshow('Opening', img_morph_opening)
@@ -38,9 +39,9 @@ cv2.imshow('Closing', img_morph_closing)
 cv2.imshow('Gradient', img_morph_gradient)
 cv2.imshow('Top Hat', img_morph_top_hat)
 cv2.imshow('Black Hat', img_morph_black_hat)
-   
+
 # De-allocate any associated memory usage 
-if cv2.waitKey(5000):
+if cv2.waitKey(0):
     cv2.destroyAllWindows()
 
 
